@@ -1,8 +1,8 @@
-// import Carts from "../Carts/Carts";
+import Carts from "../Carts/Carts";
 import Category from "../Category/Category";
-// import FeaturedMenu from "../FeaturedMenu/FeaturedMenu";
+import FeaturedMenu from "../FeaturedMenu/FeaturedMenu";
 import PopularItem from "../PopularItem/PopularItem";
-// import Testimonials from "../Testimonials/Testimonials";
+import Testimonials from "../Testimonials/Testimonials";
 import Banner from "./Banner/Banner";
 import Boss from "./Boss/Boss";
 
@@ -15,13 +15,13 @@ const Home = () => {
         <Boss></Boss>
         <PopularItem></PopularItem>
       </div>
-      {/* <div className="mx-12">
+      <div className="mx-12">
         <Carts></Carts>
       </div>
       <FeaturedMenu></FeaturedMenu>
       <div className="mx-12">
         <Testimonials></Testimonials>
-      </div>  */}
+      </div> 
       <br />
       <br />
     </div>
