@@ -8,6 +8,7 @@ import img1 from '../../assets/menu/dessert-bg.jpeg'
 import img2 from '../../assets/menu/pizza-bg.jpg'
 import img3 from '../../assets/menu/salad-bg.jpg'
 import img4 from '../../assets/menu/soup-bg.jpg'
+import { Helmet } from "react-helmet";
 
 
 
@@ -24,6 +25,9 @@ const OurMenu = () => {
 
   return (
     <div>
+       <Helmet>
+        <title>Our Menu Page</title>
+      </Helmet>
       <Cover
         img={logo}
         title="our menu"
@@ -32,26 +36,26 @@ const OurMenu = () => {
       <br />
       <br />
       <Title title={"Don't miss "} short={"today's offer"}></Title>
-      <div className="mt-10">
+      <div className="mt-10 ">
         <MenuCategory items={offered}></MenuCategory>
         <Cover
         img={img2}
         title="pizza"
         description={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
       ></Cover>
-        <MenuCategory  items={pizza}></MenuCategory>
+        <MenuCategory title={"pizza"}  items={pizza}></MenuCategory>
         <Cover
         img={img1}
         title="dessert"
         description={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
       ></Cover>
-        <MenuCategory items={dessert}></MenuCategory>
+        <MenuCategory title={"dessert"} items={dessert}></MenuCategory>
         <Cover
         img={img3}
         title="salad"
         description={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
       ></Cover>
-        <MenuCategory items={salad}></MenuCategory>
+        <MenuCategory title={"salad"} items={salad}></MenuCategory>
         <Cover
         img={img4}
         title="soup"

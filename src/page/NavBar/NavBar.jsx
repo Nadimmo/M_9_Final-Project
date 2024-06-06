@@ -15,9 +15,9 @@ const NavBar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={'/contact'}>
+        <NavLink to={'/order'}>
 
-          <a href="">Contact Us</a>
+          <a href="">Our Order</a>
         </NavLink>
       </li>
       <li>
