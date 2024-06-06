@@ -8,6 +8,7 @@ import "./style.css";
 import { RiDoubleQuotesL } from "react-icons/ri";
 import { Rating } from "@smastrom/react-rating";
 import '@smastrom/react-rating/style.css'
+import Title from "../Title/Title";
 
 const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
@@ -21,14 +22,7 @@ const Testimonials = () => {
 
   return (
     <div className="mt-24">
-      <div className="mx-auto text-center">
-        <p className="xl italic text-orange-400">
-          - - -What our Clients say - -
-        </p>
-        <hr className="w-[300px] text-center mx-auto my-2" />
-        <h3 className="text-4xl uppercase mt-2">TESTIMONIALS</h3>
-        <hr className="w-[300px] text-center mx-auto my-2 border-5" />
-      </div>
+      <Title title={"What our Clients say"} short={"TESTIMONIALS"}></Title>
       <div className="mt-10">
         <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
           {reviews.map((review) => (

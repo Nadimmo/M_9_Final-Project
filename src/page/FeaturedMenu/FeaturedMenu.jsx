@@ -1,15 +1,11 @@
 import logo from "../../assets/home/featured.jpg";
+import Title from "../Title/Title";
 import "./style.css";
 const FeaturedMenu = () => {
   return (
     <div className="back mt-24 py-10 lg:px-10">
       <div className="mx-12 text-white">
-        <div className="mx-auto text-center">
-          <p className="xl italic text-orange-400">- - -Check it out- - -</p>
-          <hr className="w-[300px] text-center mx-auto my-2" />
-          <h3 className="text-4xl uppercase mt-2 text-black">from our menu</h3>
-          <hr className="w-[300px] text-center mx-auto my-2 border-5" />
-        </div>
+        <Title title={"Check it our"} short={"from our menu"}></Title>
         <div className="lg:flex mt-5">
           <img src={logo} alt="" className=" lg:w-[460px] lg:h-[280px]" />
           <div className="lg:ml-10 mt-16 lg:w-[500px] ">

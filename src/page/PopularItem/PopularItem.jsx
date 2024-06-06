@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ItemPage from "../ItemPage/ItemPage";
+import Title from "../Title/Title";
 
 const PopularItem = () => {
   const [items, setItems] = useState([]);
@@ -14,12 +15,7 @@ const PopularItem = () => {
 //   console.log(items);
   return (
     <div className="mt-0">
-      <div className="mx-auto text-center">
-        <p className="xl italic text-orange-400">- - -Check it out- - -</p>
-        <hr className="w-[320px] text-center mx-auto my-2" />
-        <h3 className="text-4xl uppercase mt-2">from our menu</h3>
-        <hr className="w-[320px] text-center mx-auto my-2 border-5" />
-      </div>
+      <Title title={"Check it our"} short={"from our menu"}></Title>
       <div className="grid lg:grid-cols-2 gap-8 my-8">
         {
             items.map(item => <ItemPage key={item._id} item={item}></ItemPage>)

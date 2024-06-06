@@ -9,17 +9,12 @@ import image2 from "../../assets/home/slide2.jpg";
 import image3 from "../../assets/home/slide3.jpg";
 import image4 from "../../assets/home/slide4.jpg";
 import image5 from "../../assets/home/slide5.jpg";
+import Title from "../Title/Title";
 
 const Category = () => {
   return (
     <div className="lg:mt-[150px]">
-      <div className="mx-auto text-center">
-        <p className="xl italic text-orange-400">- - -Form 11:00am to 10:00am- - -</p>
-        <hr className="w-[300px] text-center mx-auto my-2" />
-        <h3 className="text-4xl uppercase mt-2">order online</h3>
-        <hr className="w-[300px] text-center mx-auto my-2 border-5"/>
-
-      </div>
+      <Title title={"Form 11:00am to 10:00am"} short={"order online"}></Title>
       <br /><br />
 
         <Swiper

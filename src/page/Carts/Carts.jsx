@@ -1,13 +1,9 @@
 import logo from "../../assets/home/slide1.jpg";
+import Title from "../Title/Title";
 const Carts = () => {
   return (
     <div className="mt-24">
-      <div className="mx-auto text-center">
-        <p className="xl italic text-orange-400">- - -Should Try- - -</p>
-        <hr className="w-[400px] text-center mx-auto my-2" />
-        <h3 className="text-4xl uppercase mt-2">CHEF RECOMMENDS</h3>
-        <hr className="w-[400px] text-center mx-auto my-2 border-5" />
-      </div>
+      <Title title={"Should Try"} short={"CHEF RECOMMENDS"}></Title>
       <div className="grid  lg:grid-cols-3 gap-5">
         <div className="card text-center card-compact w-[340px] bg-gray-200 shadow-xl mt-10">
           <figure>

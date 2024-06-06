@@ -9,6 +9,12 @@ const NavBar = () => {
         </NavLink>
       </li>
       <li>
+        <NavLink to={'/menu'}>
+
+          <a href="">Our Menu</a>
+        </NavLink>
+      </li>
+      <li>
         <NavLink to={'/contact'}>
 
           <a href="">Contact Us</a>
@@ -18,12 +24,6 @@ const NavBar = () => {
         <NavLink to={'/dashboard'}>
 
           <a href="">DashBoard</a>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={'/menu'}>
-
-          <a href="">Our Menu</a>
         </NavLink>
       </li>
       <li>
@@ -37,7 +37,7 @@ const NavBar = () => {
 
   return (
     <div>
-      <div className="navbar text-white bg-black opacity-[0.7] fixed z-20 mx-auto max-w-screen-xl">
+      <div className="navbar fixed z-10 bg-opacity-30 max-w-screen-xl bg-black text-white">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
