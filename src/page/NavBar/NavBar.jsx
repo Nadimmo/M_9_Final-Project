@@ -15,7 +15,7 @@ const NavBar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={'/order'}>
+        <NavLink to={'/order/salad'}>
 
           <a href="">Our Order</a>
         </NavLink>
@@ -30,6 +30,12 @@ const NavBar = () => {
         <NavLink to={'/shope'}>
 
           <a href="">Our Shope</a>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={'/register'}>
+
+          <a href="">Register</a>
         </NavLink>
       </li>
     </>

@@ -9,7 +9,7 @@ const MenuCategory = ({ items, title }) => {
         {items.map((item) => (
           <ItemPage key={item._id} item={item}></ItemPage>
         ))}
-      <Link to={'/order/${title}'}>
+      <Link to={`/order/${title}`}>
         <button className="btn btn-outline border-0 border-b-4 mt-4">
           Order Now
         </button>

@@ -5,6 +5,7 @@ import Root from "../Root/Root";
 import Home from "../page/Home/Home";
 import OurMenu from "../page/OurMenu/OurMenu";
 import Order from "../page/Order/Order";
+import Register from "../page/Register/Register";
 
 
   const router = createBrowserRouter([
@@ -23,6 +24,10 @@ import Order from "../page/Order/Order";
         {
           path: '/order/:category',
           element: <Order></Order>
+        },
+        {
+          path: '/register',
+          element: <Register></Register>
         }
       ]
     },

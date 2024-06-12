@@ -5,7 +5,13 @@ import "react-tabs/style/react-tabs.css";
 import useMenu from "../Hooks/useMenu";
 import FoodCarts from "./FoodCarts/FoodCarts";
 import { Helmet } from "react-helmet";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 const Order = () => {
+  const categories = ["salad", "pizza", "dessert", "soup", "drinks"]
+  const {category} = useParams()
+  const initialize = categories.indexOf(category)
+  const [tabIndex, setTabIndex] = useState(initialize);
 
     const [menu] = useMenu();
     const drinks = menu.filter((item) => item.category === "drinks");
@@ -27,7 +33,7 @@ const Order = () => {
         description={"Would you like to try a dish?"}
       ></Cover>
       <div className="mx-5 lg:mx-16 mt-20">
-        <Tabs>
+        <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
           <TabList>
             <Tab> <span className="uppercase">Salad</span></Tab>
             <Tab><span className="uppercase">Pizza</span></Tab>
