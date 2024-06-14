@@ -1,6 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const NavBar = () => {
+
+  const {user, logOut} = useContext(AuthContext)
+
   const Links = (
     <>
       <li>
@@ -30,12 +35,6 @@ const NavBar = () => {
         <NavLink to={'/shope'}>
 
           <a href="">Our Shope</a>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={'/register'}>
-
-          <a href="">Register</a>
         </NavLink>
       </li>
     </>
@@ -78,7 +77,18 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">{Links}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Login</a>
+        {user ? (
+          <>
+            <img src={user.photoURL} alt="" className="w-[50px] h-[50px] rounded-[50%] mr-2" title={user.displayName}/>
+            <Link onClick={logOut} className="btn btn-info">
+              Sign out
+            </Link>
+          </>
+        ) : (
+          <Link to={"/login"} className="btn btn-info">
+            Login
+          </Link>
+        )}
         </div>
       </div>
     </div>
