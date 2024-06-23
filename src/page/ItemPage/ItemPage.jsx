@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 const ItemPage = ({item}) => {
-    console.log(item)
+    // console.log(item)
     const {recipe, name, image,price} = item
     return (
         <div>

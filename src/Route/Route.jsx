@@ -7,6 +7,10 @@ import OurMenu from "../page/OurMenu/OurMenu";
 import Order from "../page/Order/Order";
 import Register from "../page/Register/Register";
 import Login from "../Login/Login";
+import ContactPage from "../page/ContactPage/ContactPage";
+import Cart from "../page/Dasboard/Cart";
+import Dashboard from "../Root/Dashboard";
+// import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
   const router = createBrowserRouter([
@@ -24,7 +28,7 @@ import Login from "../Login/Login";
         },
         {
           path: '/order/:category',
-          element: <Order></Order>
+          element:<Order></Order>
         },
         {
           path: '/register',
@@ -33,9 +37,24 @@ import Login from "../Login/Login";
         {
           path: '/login',
           element: <Login></Login>
+        },
+        {
+          path:'/contact',
+          element: <ContactPage></ContactPage>
         }
-      ]
+      ],
+      
     },
+    {
+      path:"dashboard",
+      element: <Dashboard></Dashboard>,
+      children: [
+       { 
+        path: 'cart',
+        element: <Cart></Cart>
+      }
+      ]
+    }
   ]);
 
 export default router;

@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { FaCartShopping } from "react-icons/fa6";
+import useCart from "../Hooks/useCart";
 
 const NavBar = () => {
-
-  const {user, logOut} = useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext);
+  const [cart] = useCart()
 
   const Links = (
     <>
@@ -14,27 +16,31 @@ const NavBar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={'/menu'}>
-
+        <NavLink to={"/menu"}>
           <a href="">Our Menu</a>
         </NavLink>
       </li>
       <li>
-        <NavLink to={'/order/salad'}>
-
+        <NavLink to={"/order/salad"}>
           <a href="">Our Order</a>
         </NavLink>
       </li>
       <li>
-        <NavLink to={'/dashboard'}>
-
-          <a href="">DashBoard</a>
+        <NavLink to={"/dashboard/cart"}>
+          <button className="btn btn-sm">
+          <FaCartShopping/>
+            <div className="badge badge-secondary">{cart.length}</div>
+          </button>
         </NavLink>
       </li>
       <li>
-        <NavLink to={'/shope'}>
-
+        <NavLink to={"/shope"}>
           <a href="">Our Shope</a>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"/contact"}>
+          <a href="">Contact</a>
         </NavLink>
       </li>
     </>
@@ -69,26 +75,32 @@ const NavBar = () => {
             </ul>
           </div>
           <div>
-          <a className="btn btn-ghost text-xl font-bold uppercase hidden lg:block">Bistro Boss </a>
+            <a className="btn btn-ghost text-xl font-bold uppercase hidden lg:block">
+              Bistro Boss{" "}
+            </a>
           </div>
-          
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{Links}</ul>
         </div>
         <div className="navbar-end">
-        {user ? (
-          <>
-            <img src={user.photoURL} alt="" className="w-[50px] h-[50px] rounded-[50%] mr-2" title={user.displayName}/>
-            <Link onClick={logOut} className="btn btn-info">
-              Sign out
+          {user ? (
+            <>
+              <img
+                src={user.photoURL}
+                alt=""
+                className="w-[50px] h-[50px] rounded-[50%] mr-2"
+                title={user.displayName}
+              />
+              <Link onClick={logOut} className="btn btn-info">
+                Sign out
+              </Link>
+            </>
+          ) : (
+            <Link to={"/login"} className="btn btn-info">
+              Login
             </Link>
-          </>
-        ) : (
-          <Link to={"/login"} className="btn btn-info">
-            Login
-          </Link>
-        )}
+          )}
         </div>
       </div>
     </div>

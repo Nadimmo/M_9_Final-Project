@@ -33,7 +33,7 @@ const Register = () => {
           });
           Toast.fire({
             icon: "success",
-            title: "Register successfully"
+            title: "User Create successfully"
           });
           console.log(res.user)
           form.reset()
@@ -61,7 +61,7 @@ const Register = () => {
       });
       Toast.fire({
         icon: "success",
-        title: "Register  successfully"
+        title: "User Create successfully"
       });
       console.log(res.user)
  

@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import logo from "../../assets/home/featured.jpg";
 import Title from "../Title/Title";
 import "./style.css";
 const FeaturedMenu = () => {
   return (
     <div className="back mt-24 py-10 lg:px-10">
-      <div className="mx-12 text-white">
+      <div className="mx-12 text-black">
         <Title title={"Check it our"} short={"from our menu"}></Title>
         <div className="lg:flex mt-5">
           <img src={logo} alt="" className=" lg:w-[460px] lg:h-[280px]" />
@@ -18,7 +19,7 @@ const FeaturedMenu = () => {
               Eaque repellat recusandae ad laudantium tempore consequatur
               consequuntur omnis ullam maxime tenetur.
             </p>
-            <button className="btn btn-outline border-0 border-b-4 mt-2">Order Now</button>
+            <button className="btn btn-outline border-0 border-b-4 mt-2"><Link to={'/menu'}>Order Now</Link></button>
           </div>
         </div>
       </div>

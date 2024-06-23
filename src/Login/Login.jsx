@@ -3,7 +3,7 @@ import "./style.css";
 import logo from "../assets/others/authentication2.png";
 import { FaFacebook, FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import {
@@ -18,6 +18,9 @@ const Login = () => {
   const [disable, setDisable] = useState(true)
   const { login, loginWithGoogle } = useContext(AuthContext);
   const captchaRef = useRef(null)
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -42,6 +45,7 @@ const Login = () => {
           icon: "success",
           title: "Log in successfully"
         });
+        navigate(location?.state || "/");
         console.log(res.user);
         form.reset()
       })
@@ -69,6 +73,7 @@ const Login = () => {
           title: "Log in successfully"
         });
         console.log(res.user);
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         console.error(error);
