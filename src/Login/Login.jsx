@@ -16,8 +16,9 @@ import Swal from "sweetalert2";
 
 const Login = () => {
   const [disable, setDisable] = useState(true)
-  const { login, loginWithGoogle } = useContext(AuthContext);
+  const { login, loginWithGoogle, loginWithGithub } = useContext(AuthContext);
   const captchaRef = useRef(null)
+
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -56,6 +57,33 @@ const Login = () => {
 
   const handlerGoogle = (e) => {
     loginWithGoogle()
+      .then((res) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Log in successfully"
+        });
+        console.log(res.user);
+        navigate(location?.state || "/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+
+  const handlerGithub = (e) => {
+    loginWithGithub()
       .then((res) => {
         const Toast = Swal.mixin({
           toast: true,
@@ -169,7 +197,7 @@ const Login = () => {
                   onClick={handlerGoogle}
                   className="hover:cursor-pointer"
                 />
-                <FaGithub className="hover:cursor-pointer" />
+                <FaGithub onClick={handlerGithub} className="hover:cursor-pointer" />
               </div>
             </form>
           </div>

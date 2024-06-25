@@ -1,61 +1,128 @@
-import { FaAd, FaCalendar, FaHome, FaList, FaSearch, FaShoppingCart } from "react-icons/fa";
+import {
+  FaAd,
+  FaCalendar,
+  FaHome,
+  FaList,
+  FaSearch,
+  FaShoppingCart,
+} from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../page/Hooks/useCart";
-
-
+import { MdGroup, MdShoppingBag } from "react-icons/md";
+import { Fa42Group, FaBook, FaEnvelope } from "react-icons/fa6";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { IoAddCircle } from "react-icons/io5";
 
 const Dashboard = () => {
-    const [cart] = useCart();
+  const [cart] = useCart();
+  const { user } = useContext(AuthContext);
+  const isAdmin = true;
 
-    return (
-        <div className="flex">
-            {/* dashboard side bar */}
-            <div className="w-64 min-h-screen bg-[#D1A054] text-white">
-                <ul className="menu p-4">
-                    <li>
-                        <NavLink to="/dashboard/userHome">
-                            <FaHome></FaHome>
-                            User Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/reservation">
-                            <FaCalendar></FaCalendar>
-                            Reservation</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/cart">
-                            <FaShoppingCart></FaShoppingCart>
-                            My Cart ({cart.length})</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/review">
-                            <FaAd></FaAd>
-                            Add a Review</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/bookings">
-                            <FaList></FaList>
-                            My Bookings</NavLink>
-                    </li>
-                    <div className="divider"></div>
-                    <li>
-                        <NavLink to="/">
-                            <FaHome></FaHome>
-                            Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/order/salad">
-                            <FaSearch></FaSearch>
-                            Menu</NavLink>
-                    </li>
-                </ul>
-            </div>
-            {/* dashboard content */}
-            <div className="flex-1 p-8">
-                <Outlet></Outlet>
-            </div>
-        </div>
-    );
+  return (
+    <div className="flex">
+      {/* dashboard side bar */}
+      <div className="w-64 min-h-screen bg-[#D1A054] text-white">
+        <ul className="menu p-4">
+          {isAdmin ? (
+            <>
+              <li className="text-xl">
+                <NavLink to="/dashboard/userHome">
+                  <FaHome className="text-2xl"></FaHome>
+                  Admin Home
+                </NavLink>
+              </li>
+              <li className="text-xl">
+                <NavLink to="/dashboard/addItem">
+                  <IoAddCircle className="text-2xl"></IoAddCircle>
+                  Add Items
+                </NavLink>
+              </li>
+              <li className="text-xl">
+                <NavLink to="/dashboard/manage">
+                  <FaList className="text-2xl"></FaList>
+                  Manage Items
+                </NavLink>
+              </li>
+              <li className="text-xl">
+                <NavLink to="/dashboard/booking">
+                  <FaBook className="text-2xl"></FaBook>
+                  Manage Bookings
+                </NavLink>
+              </li>
+              <li className="text-xl">
+                <NavLink to="/dashboard/user">
+                  <MdGroup className="text-2xl"></MdGroup>
+                  All Users
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="text-xl">
+                <NavLink to="/dashboard/userHome">
+                  <FaHome className="text-2xl"></FaHome>
+                  User Home
+                </NavLink>
+              </li>
+              <li className="text-xl">
+                <NavLink to="/dashboard/reservation">
+                  <FaCalendar className="text-2xl"></FaCalendar>
+                  Reservation
+                </NavLink>
+              </li>
+              <li className="text-xl">
+                <NavLink to="/dashboard/cart">
+                  <FaShoppingCart className="text-2xl"></FaShoppingCart>
+                  My Cart ({cart.length})
+                </NavLink>
+              </li>
+              <li className="text-xl">
+                <NavLink to="/dashboard/review">
+                  <FaAd className="text-2xl"></FaAd>
+                  Add a Review
+                </NavLink>
+              </li>
+              <li className="text-xl">
+                <NavLink to="/dashboard/bookings">
+                  <FaList className="text-2xl"></FaList>
+                  My Bookings
+                </NavLink>
+              </li>
+            </>
+          )}
+
+          <div className="divider"></div>
+          <li className="text-xl">
+            <NavLink to="/">
+              <FaHome className="text-2xl"></FaHome>
+              Home
+            </NavLink>
+          </li>
+          <li className="text-xl">
+            <NavLink to="/order/salad">
+              <FaSearch className="text-2xl"></FaSearch>
+              Menu
+            </NavLink>
+          </li>
+          <li className="text-xl">
+            <NavLink to={"dashboard/shope"}>
+              <MdShoppingBag className="text-2xl" /> Shope
+            </NavLink>
+          </li>
+          <li className="text-xl">
+            <NavLink to={"dashboard/contact"}>
+              <FaEnvelope className="text-2xl" /> Contact
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+      {/* dashboard content */}
+      <div className="flex-1 p-8">
+        <Outlet></Outlet>
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;

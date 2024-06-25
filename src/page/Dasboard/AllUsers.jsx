@@ -1,14 +1,19 @@
-import { FaDeleteLeft } from "react-icons/fa6";
-import useCart from "../Hooks/useCart";
-import { RiDeleteBin5Fill } from "react-icons/ri";
+import React from "react";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import { FaUserGroup } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
-const Cart = () => {
-  const [cart, refetch] = useCart();
-  const axiosSecure = useAxiosSecure()
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0)
-  // console.log(cart)
+const AllUsers = () => {
+  const axiosSecure = useAxiosSecure();
+  const { refetch, data: users = [] } = useQuery({
+    queryKey: ["Users"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/user");
+      return res.data;
+    },
+  });
 
   const handlerRemove = id => {
     Swal.fire({
@@ -22,7 +27,7 @@ const Cart = () => {
     }).then((result) => {
         if (result.isConfirmed) {
 
-            axiosSecure.delete(`/carts/${id}`)
+            axiosSecure.delete(`/user/${id}`)
                 .then(res => {
                     if (res.data.deletedCount > 0) {
                         refetch();
@@ -39,52 +44,45 @@ const Cart = () => {
 
 
 
+
   return (
     <div>
-      <div className="grid lg:grid-cols-3 gap-8 text-center">
-        <h3 className="text-4xl">Total Booking: {cart.length} </h3>
-        <h3 className="text-4xl">Total Price: ${totalPrice}</h3>
-        <button className="btn bg-[#D1A054] w-[100px]">Pay</button>
+      <div className="grid lg:grid-cols-2 gap-8 text-center">
+        <h3 className="text-4xl">Total Users: {users.length} </h3>
+        <h3 className="text-4xl">Total Price: </h3>
       </div>
       <div className="mt-10 bg-white rounded-2xl rounded-b-none">
         <div className="overflow-x-auto rounded-2xl">
           <table className="table">
             {/* head */}
-            <thead className="bg-[#D1A054] text-white">
+            <thead className="bg-[#D1A054] text-white ">
               <tr>
             
                 <th>Name</th>
                 <th>Email</th>
-                <th>Price</th>
+                <th>Role</th>
                 <th></th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
                 {
-                    cart.map(item =>  <tr key={item._id}>
+                    users.map(item =>  <tr key={item._id}>
                     
                         <td>
                           <div className="flex items-center gap-3">
-                            <div className="avatar">
-                              <div className="mask mask-squircle w-12 h-12">
-                                <img
-                                  src={item.image}
-                                  alt="Avatar Tailwind CSS Component"
-                                />
-                              </div>
-                            </div>
                             <div>
                               <div className="font-bold">{item.name}</div>
-                              <div className="text-sm opacity-50">{item.recipe}</div>
                             </div>
                           </div>
                         </td>
                         <td>
                             {item.email}
                         </td>
-                        <td>${item.price}</td>
+                        <td className="bg-[#D1A054] text-white rounded-2xl w-[50px] "> <FaUserGroup className="text-3xl "></FaUserGroup></td>
+                        <td></td>
                         <th>
-                          <button onClick={()=>handlerRemove(item._id)} className="btn btn-ghost text-2xl"><RiDeleteBin5Fill /></button>
+                          <button onClick={()=>handlerRemove(item._id)} className="btn bg-[#B91C1C] text-white hover:text-black text-2xl"><RiDeleteBin5Fill /></button>
                         </th>
                       </tr>)
                 }
@@ -98,4 +96,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default AllUsers;

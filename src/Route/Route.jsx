@@ -10,6 +10,7 @@ import Login from "../Login/Login";
 import ContactPage from "../page/ContactPage/ContactPage";
 import Cart from "../page/Dasboard/Cart";
 import Dashboard from "../Root/Dashboard";
+import AllUsers from "../page/Dasboard/AllUsers";
 // import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -52,6 +53,10 @@ import Dashboard from "../Root/Dashboard";
        { 
         path: 'cart',
         element: <Cart></Cart>
+      },
+      {
+        path:"user",
+        element: <AllUsers></AllUsers>
       }
       ]
     }

@@ -15,7 +15,7 @@ const FoodCarts = ({ item }) => {
 
   const handlerSend = (item) => {
     // console.log(item)
-    if (user && user.email) {
+    if (user && user.displayName) {
       const cartItem = {
         menuId: _id,
         email: user.email,
