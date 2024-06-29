@@ -10,14 +10,12 @@ import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../page/Hooks/useCart";
 import { MdGroup, MdShoppingBag } from "react-icons/md";
 import { Fa42Group, FaBook, FaEnvelope } from "react-icons/fa6";
-import { useContext } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
 import { IoAddCircle } from "react-icons/io5";
+import useAdmin from "../page/Hooks/useAdmin";
 
 const Dashboard = () => {
   const [cart] = useCart();
-  const { user } = useContext(AuthContext);
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="flex">

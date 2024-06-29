@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
+  // use tan stack query
   const { refetch, data: users = [] } = useQuery({
     queryKey: ["Users"],
     queryFn: async () => {
@@ -15,35 +16,50 @@ const AllUsers = () => {
     },
   });
 
-  const handlerRemove = id => {
+  const handlerRemove = (id) => {
     Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
-        if (result.isConfirmed) {
-
-            axiosSecure.delete(`/user/${id}`)
-                .then(res => {
-                    if (res.data.deletedCount > 0) {
-                        refetch();
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
-                    }
-                })
-        }
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/user/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
     });
-}
+  };
 
-
-
+  const handlerAdmin = user => {
+    // console.log('delete this id', id)
+    axiosSecure
+      .patch(`/user/admin/${user._id}`)
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${user.name} is an Admin Now!`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch(console.error());
+  };
 
   return (
     <div>
@@ -57,7 +73,6 @@ const AllUsers = () => {
             {/* head */}
             <thead className="bg-[#D1A054] text-white ">
               <tr>
-            
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -66,28 +81,34 @@ const AllUsers = () => {
               </tr>
             </thead>
             <tbody>
-                {
-                    users.map(item =>  <tr key={item._id}>
-                    
-                        <td>
-                          <div className="flex items-center gap-3">
-                            <div>
-                              <div className="font-bold">{item.name}</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                            {item.email}
-                        </td>
-                        <td className="bg-[#D1A054] text-white rounded-2xl w-[50px] "> <FaUserGroup className="text-3xl "></FaUserGroup></td>
-                        <td></td>
-                        <th>
-                          <button onClick={()=>handlerRemove(item._id)} className="btn bg-[#B91C1C] text-white hover:text-black text-2xl"><RiDeleteBin5Fill /></button>
-                        </th>
-                      </tr>)
-                }
+              {users.map((user) => (
+                <tr key={user._id}>
+                  <td>
+                    <div className="flex users-center gap-3">
+                      <div>
+                        <div className="font-bold">{user.name}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{user.email}</td>
+                  {user.role ==='admin'?"Admin": <button
+                    onClick={() => handlerAdmin(user)}
+                    className="btn bg-[#D1A054] text-xl text-white rounded-2xl "
+                  >
+                    <FaUserGroup ></FaUserGroup>
+                  </button>}
+                  <td></td>
+                  <th>
+                    <button
+                      onClick={() => handlerRemove(user._id)}
+                      className="btn bg-[#B91C1C] text-white hover:text-black text-2xl"
+                    >
+                      <RiDeleteBin5Fill />
+                    </button>
+                  </th>
+                </tr>
+              ))}
               {/* row 1 */}
-             
             </tbody>
           </table>
         </div>

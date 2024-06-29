@@ -1,6 +1,7 @@
 import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged,  signInWithEmailAndPassword,  signInWithPopup,  signOut,  updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.config";
+import useAxiosPublic from "../page/Hooks/useAxiosPublic";
 
 export const AuthContext = createContext()
 const auth = getAuth(app)
@@ -12,6 +13,7 @@ const GithubProvider = new GithubAuthProvider()
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null)
     const [loader, setLoader] = useState(true)
+    const axiosPublic = useAxiosPublic()
 
     const register = (email,password)=>{
         setLoader(true)
@@ -51,6 +53,21 @@ const AuthProvider = ({children}) => {
             console.log('current user', currentUser)
             setLoader(false)
             setUser(currentUser)
+            const userInfo = {email: currentUser.email}
+            // jwt
+            if(currentUser){
+                axiosPublic.post('/jwt',userInfo)
+                .then((res)=>{
+                    if(res.data.token){
+                        // set token localstorage
+                    localStorage.setItem("access-token", res.data.token)
+                    }
+                })
+            }
+            else{
+                // remove  token in localstorage
+                localStorage.removeItem('access-token')
+            }
     
             return () =>{
                 UnSubscribe()
