@@ -13,6 +13,7 @@ import Dashboard from "../Root/Dashboard";
 import AllUsers from "../page/Dasboard/AllUsers";
 import AddItem from "../page/Dasboard/AddItem";
 import AdminRoute from "../PrivateRoute/AdminRoute";
+import ManageItem from "../page/Dasboard/ManageItem";
 // import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -63,6 +64,10 @@ import AdminRoute from "../PrivateRoute/AdminRoute";
       {
         path:"addItem",
         element: <AdminRoute> <AddItem></AddItem></AdminRoute>
+      },
+      {
+        path: 'manage',
+        element: <AdminRoute> <ManageItem></ManageItem> </AdminRoute>
       }
       ]
     }

@@ -22,7 +22,7 @@ const AddItem = () => {
           headers: 
           {'content-type': 'multipart/form-data'}
         })
-        console.log(data)
+        // console.log(data)
         if(res.data.success){
             const menuItem = {
                 name: data.name,

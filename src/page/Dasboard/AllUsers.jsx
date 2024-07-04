@@ -81,8 +81,11 @@ const AllUsers = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {users.map((user, index) => (
                 <tr key={user._id}>
+                  <td>
+                    {index+1}
+                </td>
                   <td>
                     <div className="flex users-center gap-3">
                       <div>
