@@ -11,6 +11,8 @@ import ContactPage from "../page/ContactPage/ContactPage";
 import Cart from "../page/Dasboard/Cart";
 import Dashboard from "../Root/Dashboard";
 import AllUsers from "../page/Dasboard/AllUsers";
+import AddItem from "../page/Dasboard/AddItem";
+import AdminRoute from "../PrivateRoute/AdminRoute";
 // import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -56,7 +58,11 @@ import AllUsers from "../page/Dasboard/AllUsers";
       },
       {
         path:"user",
-        element: <AllUsers></AllUsers>
+        element: <AdminRoute><AllUsers></AllUsers></AdminRoute> 
+      },
+      {
+        path:"addItem",
+        element: <AdminRoute> <AddItem></AddItem></AdminRoute>
       }
       ]
     }

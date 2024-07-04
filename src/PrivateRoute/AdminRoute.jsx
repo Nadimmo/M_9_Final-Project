@@ -1,12 +1,14 @@
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import useAdmin from "../page/Hooks/useAdmin";
 import { Navigate, useLocation } from "react-router-dom";
 
-const PrivateRoute = ({ Children }) => {
+const AdminRoute = ({ children }) => {
   const { user, loader } = useContext(AuthContext);
-  const location = useLocation()
-//   console.log(location.pathname)
-  if (loader) {
+  const [isAdmin, isAdminLoading] = useAdmin();
+  const location = useLocation();
+  //   console.log(location.pathname)
+  if (loader || isAdminLoading) {
     return (
       <>
         <span className="loading loading-bars loading-xs"></span>
@@ -16,10 +18,11 @@ const PrivateRoute = ({ Children }) => {
       </>
     );
   }
-  if(user){
-    return Children
+  if (user && isAdmin) {
+    return children;
   }
-  return <Navigate state={location?.pathname} to={'/login'}/>
+  return <Navigate to="/login" state={{from: location}} replace></Navigate>
+
 };
 
-export default PrivateRoute;
+export default AdminRoute;
