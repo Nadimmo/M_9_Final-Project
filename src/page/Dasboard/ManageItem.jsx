@@ -5,6 +5,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { FaEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const ManageItem = () => {
   const [menu, refetch] = useMenu();
   const axiosSecure = useAxiosSecure();
@@ -23,17 +24,19 @@ const ManageItem = () => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/menu/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
-              refetch();
-              Swal.fire({
-                  title: "Deleted!",
-                  text: "Your file has been deleted.",
-                  icon: "success",
-                });
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
           }
         });
       }
     });
   };
+
+
 
   return (
     <div>
@@ -54,9 +57,7 @@ const ManageItem = () => {
           <tbody>
             {menu.map((item, index) => (
               <tr key={item._it}>
-                <td>
-                    {index+1}
-                </td>
+                <td>{index + 1}</td>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -73,7 +74,14 @@ const ManageItem = () => {
                   </div>
                 </td>
                 <td>${item.price}</td>
-                <button className="btn text-white bg-[#D1A054] mt-3"><FaEdit className="text-2xl "></FaEdit></button>
+                <Link to={`/dashboard/update/${item._id}`}>
+                  <button
+                    
+                    className="btn text-white bg-[#D1A054] mt-3"
+                  >
+                    <FaEdit className="text-2xl "></FaEdit>
+                  </button>
+                </Link>
                 <th>
                   <button
                     onClick={() => handlerRemove(item._id)}

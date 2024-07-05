@@ -14,6 +14,7 @@ import AllUsers from "../page/Dasboard/AllUsers";
 import AddItem from "../page/Dasboard/AddItem";
 import AdminRoute from "../PrivateRoute/AdminRoute";
 import ManageItem from "../page/Dasboard/ManageItem";
+import UpdateItem from "../page/Dasboard/UpdateItem";
 // import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -68,6 +69,11 @@ import ManageItem from "../page/Dasboard/ManageItem";
       {
         path: 'manage',
         element: <AdminRoute> <ManageItem></ManageItem> </AdminRoute>
+      },
+      {
+        path: 'update/:id',
+        element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute> ,
+        loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
       }
       ]
     }
