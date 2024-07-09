@@ -15,6 +15,7 @@ import AddItem from "../page/Dasboard/AddItem";
 import AdminRoute from "../PrivateRoute/AdminRoute";
 import ManageItem from "../page/Dasboard/ManageItem";
 import UpdateItem from "../page/Dasboard/UpdateItem";
+import Payment from "../page/Dasboard/Payment";
 // import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -57,6 +58,10 @@ import UpdateItem from "../page/Dasboard/UpdateItem";
        { 
         path: 'cart',
         element: <Cart></Cart>
+      },
+      {
+        path:"payment",
+        element: <Payment></Payment>
       },
       {
         path:"user",
