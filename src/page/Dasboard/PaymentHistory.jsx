@@ -15,18 +15,18 @@ const PaymentHistory = () => {
       return res.data;
     },
   });
-  console.log(payments);
+//   console.log(payments);
 
   return (
     <div>
       <Title title={"At a Glance"} short={"payment history"}></Title>
       <div className="my-5">
         <h3 className="text-4xl">Total Payment : {payments.length}</h3>
-        <div>
-          <div className="overflow-x-auto">
+        <div className=" mt-5 bg-white rounded-2xl rounded-b-none">
+          <div className="overflow-x-auto rounded-2xl rounded-b-none">
             <table className="table">
               {/* head */}
-              <thead>
+              <thead className="bg-[#D1A054] text-white">
                 <tr>
                     <th></th>
                   <th>Email</th>

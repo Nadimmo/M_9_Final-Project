@@ -9,7 +9,7 @@ const Cart = () => {
   const [cart, refetch] = useCart();
   const axiosSecure = useAxiosSecure();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-  console.log(cart)
+  // console.log(cart)
 
   const handlerRemove = (id) => {
     Swal.fire({

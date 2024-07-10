@@ -76,7 +76,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li className="text-xl">
-                <NavLink to="/dashboard/review">
+                <NavLink to="/dashboard/addReview">
                   <FaAd className="text-2xl"></FaAd>
                   Add a Review
                 </NavLink>

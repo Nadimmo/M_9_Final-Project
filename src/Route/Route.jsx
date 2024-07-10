@@ -17,6 +17,7 @@ import ManageItem from "../page/Dasboard/ManageItem";
 import UpdateItem from "../page/Dasboard/UpdateItem";
 import Payment from "../page/Dasboard/Payment";
 import PaymentHistory from "../page/Dasboard/PaymentHistory";
+import AddReview from "../page/Dasboard/AddReview";
 // import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -67,6 +68,10 @@ import PaymentHistory from "../page/Dasboard/PaymentHistory";
       {
         path:"paymentHistory",
         element: <PaymentHistory></PaymentHistory>
+      },
+      {
+        path:"addReview",
+        element: <AddReview></AddReview>
       },
       {
         path:"user",
