@@ -1,25 +1,32 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
-import useCart from "../../Hooks/useCart";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import useCart from "../../Hooks/useCart";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const {user} = useContext(AuthContext)
-  const { cart, refetch } = useCart();
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate()
+  const [cart, refetch] = useCart();
   const axiosSecure = useAxiosSecure();
   const [cartError, setCartError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
+  const [transactionId, setTransactionId] = useState("");
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+  // console.log(cart)
 
   useEffect(() => {
     if (totalPrice > 0) {
-      axiosSecure.post("/create-payment-intent", {price: totalPrice}).then((res) => {
-        console.log(res.data.clientSecret);
-        setClientSecret(res.data.clientSecret)
-      });
+      axiosSecure
+        .post("/create-payment-intent", { price: totalPrice })
+        .then((res) => {
+          // console.log(res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        });
     }
   }, [axiosSecure, totalPrice]);
 
@@ -50,30 +57,52 @@ const CheckOutForm = () => {
     }
 
     // create confirm payment method
-   const {paymentIntent, error: cartError} = await stripe.confirmCardPayment(clientSecret,{
-    payment_method:{
-      card: card,
-      billing_details:{
-        name: user?.displayName || "anonymous",
-        email: user?.name || "anonymous"
+    const { paymentIntent, error: cartError } = await stripe.confirmCardPayment(
+      clientSecret,
+      {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: user?.displayName || "anonymous",
+            email: user?.email || "anonymous",
+          },
+        },
+      }
+    );
 
+    if (cartError) {
+      console.log("error", cartError);
+    } else {
+      // console.log("paymentIntent", paymentIntent);
+      if (paymentIntent.status === "succeeded") {
+        setTransactionId(paymentIntent.id);
+
+        // now save the payment in the database
+        const payment = {
+          email: user.email,
+          price: totalPrice,
+          transactionId: paymentIntent.id,
+          date: new Date(), //convert utc time use moment.js,
+          cartIds: cart.map((item) => item._id),
+          menuIds: cart.map((item) => item.menuId),
+          status: "pending",
+        };
+
+        const res = await axiosSecure.post("/payments", payment);
+        // console.log(res.data.paymentResult)
+        refetch();
+        if (res.data?.paymentResult?.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `Payment Successfully`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/dashboard/paymentHistory")
+        }
       }
     }
-
-   })
-
-   if(cartError){
-    console.log('error', cartError)
-   }
-   else{
-    console.log('paymentIntent', paymentIntent)
-   }
-
-
-
-
-
-
   };
 
   return (
@@ -83,7 +112,7 @@ const CheckOutForm = () => {
           options={{
             style: {
               base: {
-                fontSize: "16px",
+                fontSize: "18px",
                 color: "#424770",
                 "::placeholder": {
                   color: "#aab7c4",
@@ -95,11 +124,16 @@ const CheckOutForm = () => {
             },
           }}
         />
-        <button className="btn btn-info my-5" type="submit" disabled={!stripe || !clientSecret}>
+        <button
+          className="btn btn-info my-5"
+          type="submit"
+          disabled={!stripe || !clientSecret}
+        >
           Pay
         </button>
       </form>
       <p className="text-red-500">{cartError}</p>
+      <p className="text-green-500">Your TransactionId: {transactionId}</p>
     </div>
   );
 };
