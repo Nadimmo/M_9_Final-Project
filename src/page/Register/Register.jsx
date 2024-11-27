@@ -52,6 +52,7 @@ const Register = () => {
               icon: "success",
               title: "User Create successfully",
             });
+            navigate(location?.state || "/");
           }
           form.reset()
         });
@@ -80,7 +81,9 @@ const Register = () => {
           icon: "success",
           title: "User Create successfully",
         });
-        console.log(res.user);
+        // console.log(res.user);
+        navigate(location?.state || "/");
+
       })
       .catch((error) => {
         console.error(error);
@@ -187,18 +190,18 @@ const Register = () => {
               </div>
               <div className="text-center text-lg divider">- - Or - -</div>
               <div className=" text-4xl  mt-4">
-                <button className="btn w-full hover:bg-yellow-600 hover:text-white">
+                <button   onClick={handlerGoogle} className="btn w-full hover:bg-yellow-600 hover:text-white">
                   {" "}
                   <FcGoogle
-                    onClick={handlerGoogle}
+                  
                     className="hover:cursor-pointer  text-2xl ml-20"
                   />{" "}
                  <p> sign in with google</p>
                 </button>
-                <button className="btn w-full mt-2 hover:bg-yellow-600 hover:text-white ">
+                <button   onClick={handlerGithub} className="btn w-full mt-2 hover:bg-yellow-600 hover:text-white ">
                   {" "}
                   <FaGithub
-                    onClick={handlerGithub}
+                  
                      className="hover:cursor-pointer text-2xl ml-20"
                   />
                   <p>sig in with github</p>
