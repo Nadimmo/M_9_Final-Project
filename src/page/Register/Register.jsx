@@ -2,15 +2,16 @@ import "./style.css";
 import logo from "../../assets/others/authentication2.png";
 import { FaFacebook, FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 const Register = () => {
-  const { register, updateUserProfile, loginWithGoogle } =
+  const { register, updateUserProfile, loginWithGoogle ,loginWithGithub} =
     useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate()
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +29,7 @@ const Register = () => {
           name: name,
           email: email,
         };
-        console.log(userInfo);
+        // console.log(userInfo);
 
         // send to data in database a user
         axiosPublic.post("/user", userInfo).then((res) => {
@@ -86,6 +87,33 @@ const Register = () => {
       });
   };
 
+  const handlerGithub = (e) => {
+    loginWithGithub()
+      .then((res) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Log in successfully",
+        });
+        console.log(res.user);
+        navigate(location?.state || "/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+
   return (
     <div className="back pt-[100px]">
       <div className="hero min-h-screen back shadow-2xl border-0 border-b-2">
@@ -94,7 +122,7 @@ const Register = () => {
             <h1 className="text-5xl font-bold text-center">Register now!</h1>
             <img src={logo} alt="" />
           </div>
-          <div className="card shrink-0 w-[400px]  shadow-2xl ">
+          <div className="card shrink-0  shadow-2xl ">
             <form onSubmit={handlerSubmit} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -157,14 +185,24 @@ const Register = () => {
                   </Link>
                 </p>
               </div>
-              <p className="text-center text-lg">- -Or sign up with- -</p>
-              <div className="grid grid-cols-3 gap-5 text-4xl ml-6 mt-4">
-                <FaFacebook className="hover:cursor-pointer" />
-                <FcGoogle
-                  onClick={handlerGoogle}
-                  className="hover:cursor-pointer"
-                />
-                <FaGithub className="hover:cursor-pointer" />
+              <div className="text-center text-lg divider">- - Or - -</div>
+              <div className=" text-4xl  mt-4">
+                <button className="btn w-full hover:bg-yellow-600 hover:text-white">
+                  {" "}
+                  <FcGoogle
+                    onClick={handlerGoogle}
+                    className="hover:cursor-pointer  text-2xl ml-20"
+                  />{" "}
+                 <p> sign in with google</p>
+                </button>
+                <button className="btn w-full mt-2 hover:bg-yellow-600 hover:text-white ">
+                  {" "}
+                  <FaGithub
+                    onClick={handlerGithub}
+                     className="hover:cursor-pointer text-2xl ml-20"
+                  />
+                  <p>sig in with github</p>
+                </button>
               </div>
             </form>
           </div>

@@ -15,10 +15,9 @@ import {
 import Swal from "sweetalert2";
 
 const Login = () => {
-  const [disable, setDisable] = useState(true)
+  const [disable, setDisable] = useState(true);
   const { login, loginWithGoogle, loginWithGithub } = useContext(AuthContext);
-  const captchaRef = useRef(null)
-
+  const captchaRef = useRef(null);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -40,15 +39,15 @@ const Login = () => {
           didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
             toast.onmouseleave = Swal.resumeTimer;
-          }
+          },
         });
         Toast.fire({
           icon: "success",
-          title: "Log in successfully"
+          title: "Log in successfully",
         });
         navigate(location?.state || "/");
         console.log(res.user);
-        form.reset()
+        form.reset();
       })
       .catch((error) => {
         console.error(error);
@@ -67,11 +66,11 @@ const Login = () => {
           didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
             toast.onmouseleave = Swal.resumeTimer;
-          }
+          },
         });
         Toast.fire({
           icon: "success",
-          title: "Log in successfully"
+          title: "Log in successfully",
         });
         console.log(res.user);
         navigate(location?.state || "/");
@@ -80,7 +79,6 @@ const Login = () => {
         console.error(error);
       });
   };
-
 
   const handlerGithub = (e) => {
     loginWithGithub()
@@ -94,11 +92,11 @@ const Login = () => {
           didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
             toast.onmouseleave = Swal.resumeTimer;
-          }
+          },
         });
         Toast.fire({
           icon: "success",
-          title: "Log in successfully"
+          title: "Log in successfully",
         });
         console.log(res.user);
         navigate(location?.state || "/");
@@ -108,26 +106,20 @@ const Login = () => {
       });
   };
 
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
 
-  useEffect(()=>{
-    loadCaptchaEnginge(6); 
-  },[])
-
-  const handlerCaptcha =e=>{
-    e.preventDefault()
+  const handlerCaptcha = (e) => {
+    e.preventDefault();
     const user_captcha_value = captchaRef.current.value;
-    // console.log(user_captcha_value) 
-    if (validateCaptcha(user_captcha_value)==true) {
-      setDisable(false)
-  }
-
-  else {
-      setDisable(true)
-  }
-
-
-  }
-
+    // console.log(user_captcha_value)
+    if (validateCaptcha(user_captcha_value) == true) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  };
 
   return (
     <div className="back pt-[100px]">
@@ -137,8 +129,8 @@ const Login = () => {
             <h1 className="text-5xl font-bold text-center">Login now!</h1>
             <img src={logo} alt="" />
           </div>
-          <div className="card shrink-0 w-[400px]  shadow-2xl ">
-            <form onSubmit={handlerSubmit} className="card-body">
+          <div className="shadow-2xl ">
+            <form onSubmit={handlerSubmit} className="card-body w-[540px] ">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -163,22 +155,27 @@ const Login = () => {
                   name="password"
                 />
               </div>
-              <div >
-                <LoadCanvasTemplate  />
+              <div>
+                <LoadCanvasTemplate />
               </div>
               <input
-                  type="text"
-                  placeholder="text"
-                  className="input input-bordered"
-                  required
-                  
-                  ref={captchaRef}
-                />
-              <button onClick={handlerCaptcha} className="btn text-sm bg-yellow-600 text-white">
-                  Validate
-                </button>
+                type="text"
+                placeholder="text"
+                className="input input-bordered"
+                required
+                ref={captchaRef}
+              />
+              <button
+                onClick={handlerCaptcha}
+                className="btn text-sm bg-yellow-600 text-white"
+              >
+                Validate
+              </button>
               <div className="form-control mt-6">
-                <button disabled={disable} className="btn bg-yellow-600 text-white">
+                <button
+                  disabled={disable}
+                  className="btn bg-yellow-600 text-white"
+                >
                   Login
                 </button>
               </div>
@@ -190,14 +187,24 @@ const Login = () => {
                   </Link>
                 </p>
               </div>
-              <p className="text-center text-lg">- -Or sign up with- -</p>
-              <div className="grid grid-cols-3 gap-5 text-4xl ml-6 mt-4">
-                <FaFacebook className="hover:cursor-pointer" />
-                <FcGoogle
-                  onClick={handlerGoogle}
-                  className="hover:cursor-pointer"
-                />
-                <FaGithub onClick={handlerGithub} className="hover:cursor-pointer" />
+              <div className="text-center text-lg divider">- - Or - -</div>
+              <div className=" text-4xl  mt-4">
+                <button className="btn w-full hover:bg-yellow-600 hover:text-white">
+                  {" "}
+                  <FcGoogle
+                    onClick={handlerGoogle}
+                    className="hover:cursor-pointer  text-2xl ml-20"
+                  />{" "}
+                 <p> sign in with google</p>
+                </button>
+                <button className="btn w-full mt-2 hover:bg-yellow-600 hover:text-white ">
+                  {" "}
+                  <FaGithub
+                    onClick={handlerGithub}
+                     className="hover:cursor-pointer text-2xl ml-20"
+                  />
+                  <p>sig in with github</p>
+                </button>
               </div>
             </form>
           </div>
