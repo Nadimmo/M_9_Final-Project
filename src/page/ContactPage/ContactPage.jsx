@@ -4,8 +4,48 @@ import Title from "../Title/Title";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaLocationDot } from "react-icons/fa6";
 import { PiTimerFill } from "react-icons/pi";
+import useAxiosPublic from './../Hooks/useAxiosPublic';
+import Swal from "sweetalert2";
 
 const ContactPage = () => {
+  const axiosPublic =useAxiosPublic()
+
+
+  const handlerSubmit =(e)=>{
+    e.preventDefault()
+    const from = e.target 
+    const name = from.name.value 
+    const email = from.email.value;
+    const phone = from.phone.value;
+    const message = from.message.value;
+    const userInfo = {
+      name: name,
+      email: email,
+      phone: phone,
+      message: message
+    }
+    // console.log(userInfo)
+    axiosPublic.post('/contact', userInfo)
+    .then(res =>{
+      if(res.data.insertedId){
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        from.reset()
+      }
+    })
+    .catch(err =>{
+      alert(err.message)
+    })
+
+
+  }
+
+
   return (
     <div>
       <Cover
@@ -49,13 +89,14 @@ const ContactPage = () => {
       </div>
       <div className="mx-12 my-10">
         <Title title={"Send Us a Message"} short={"contact from"}></Title>
-        <form action="" className="bg-base-200 text-black p-10">
+        <form onSubmit={handlerSubmit} action="" className="bg-base-200 text-black p-10">
           <div className="lg:flex justify-between">
             <div className="">
               <label className="label">
                 <span className="label-text">Name</span>
               </label>
               <input
+                name="name"
                 type="text"
                 placeholder="name"
                 className="input input-bordered lg:w-[500px]"
@@ -67,6 +108,7 @@ const ContactPage = () => {
                 <span className="label-text">Email</span>
               </label>
               <input
+                name="email"
                 type="email"
                 placeholder="email"
                 className="input input-bordered lg:w-[500px]"
@@ -75,30 +117,33 @@ const ContactPage = () => {
             </div>
           </div>
           <div className="">
-              <label className="label">
-                <span className="label-text">Phone</span>
-              </label>
-              <input
-                type="number"
-                placeholder="phone"
-                className="input input-bordered lg:w-full"
-                required
-              />
-            </div>
-            <div className="">
-              <label className="label">
-                <span className="label-text">Message</span>
-              </label>
-              <textarea
-                type="text"
-                placeholder="message"
-                className="input input-bordered lg:w-full h-[200px]"
-                required
-              />
-            </div>
-  
-             <button className="btn bg-[#D1A054] text-black mt-10 justify-center">Send Message</button>
-        
+            <label className="label">
+              <span className="label-text">Phone</span>
+            </label>
+            <input
+              name="phone"
+              type="number"
+              placeholder="phone"
+              className="input input-bordered lg:w-full"
+              required
+            />
+          </div>
+          <div className="">
+            <label className="label">
+              <span className="label-text">Message</span>
+            </label>
+            <textarea
+              name="message"
+              type="text"
+              placeholder="message"
+              className="input input-bordered lg:w-full h-[200px]"
+              required
+            />
+          </div>
+
+          <button className="btn bg-[#D1A054] text-black mt-10 justify-center">
+            Send Message
+          </button>
         </form>
       </div>
     </div>
