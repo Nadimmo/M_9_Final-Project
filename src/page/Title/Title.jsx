@@ -2,7 +2,7 @@
 
 const Title = ({title, short}) => {
     return (
-        <div className="mx-auto text-center">
+        <div className="mx-auto text-center font-mono">
         <p className="xl italic text-orange-400">- - -{title}- - -</p>
         <hr className="w-[300px] lg:w-[400px] border-2 text-center mx-auto my-2" />
         <h3 className="text-4xl uppercase mt-2">{short}</h3>

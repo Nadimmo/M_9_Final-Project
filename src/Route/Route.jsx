@@ -20,6 +20,7 @@ import PaymentHistory from "../page/Dasboard/PaymentHistory";
 import AddReview from "../page/Dasboard/AddReview";
 import OurShope from "../page/OurShope/OurShope";
 import BookingPage from "../page/Dasboard/BookingPage";
+import ManageBooking from "../page/Dasboard/ManageBooking";
 // import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -96,6 +97,10 @@ import BookingPage from "../page/Dasboard/BookingPage";
       {
         path: 'manage',
         element: <AdminRoute> <ManageItem></ManageItem> </AdminRoute>
+      },
+      {
+        path:'booking',
+        element: <AdminRoute> <ManageBooking></ManageBooking></AdminRoute>
       },
       {
         path: 'update/:id',

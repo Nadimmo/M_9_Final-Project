@@ -48,11 +48,11 @@ const Login = () => {
           title: "Log in successfully",
         });
         navigate(location?.state || "/");
-        console.log(res.user);
+        // console.log(res.user);
         form.reset();
       })
       .catch((error) => {
-        console.error(error);
+        alert(error.message)
       });
   };
 

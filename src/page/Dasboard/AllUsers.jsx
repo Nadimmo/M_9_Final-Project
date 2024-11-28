@@ -63,9 +63,9 @@ const AllUsers = () => {
 
   return (
     <div>
-      <div className="grid lg:grid-cols-2 gap-8 text-center">
-        <h3 className="text-4xl">Total Users: {users.length} </h3>
-        <h3 className="text-4xl">Total Price: </h3>
+      <div className="grid lg:grid-cols-2 gap-8 text-center font-bold font-mono">
+        <h3 className="text-2xl">Total Users: {users.length} </h3>
+        <h3 className="text-2xl">Total Price: </h3>
       </div>
       <div className="mt-10 bg-white rounded-2xl rounded-b-none">
         <div className="overflow-x-auto rounded-2xl">
@@ -73,6 +73,7 @@ const AllUsers = () => {
             {/* head */}
             <thead className="bg-[#D1A054] text-white ">
               <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>

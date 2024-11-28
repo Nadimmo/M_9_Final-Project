@@ -9,7 +9,7 @@ const Cart = () => {
   const [cart, refetch] = useCart();
   const axiosSecure = useAxiosSecure();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-  console.log(cart)
+  // console.log(cart)
 
   const handlerRemove = (id) => {
     Swal.fire({
@@ -38,9 +38,9 @@ const Cart = () => {
 
   return (
     <div>
-      <div className="grid lg:grid-cols-3 gap-10 text-center">
-        <h3 className="text-4xl">Total Booking: {cart.length} </h3>
-        <h3 className="text-4xl">Total Price: ${totalPrice}</h3>
+      <div className="grid lg:grid-cols-3 gap-10 text-center font-bold font-mono">
+        <h3 className="text-2xl">Total Booking: {cart.length} </h3>
+        <h3 className="text-2xl">Total Price: ${totalPrice}</h3>
         {cart.length ? (
           <Link to={"/dashboard/payment"}>
             <button className="btn bg-[#D1A054] w-[100px]">Pay</button>

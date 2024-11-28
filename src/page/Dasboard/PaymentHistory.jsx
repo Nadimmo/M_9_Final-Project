@@ -21,7 +21,7 @@ const PaymentHistory = () => {
     <div>
       <Title title={"At a Glance"} short={"payment history"}></Title>
       <div className="my-5">
-        <h3 className="text-4xl">Total Payment : {payments.length}</h3>
+        <h3 className="text-2xl font-bold font-mono">Total Payment : {payments.length}</h3>
         <div className=" mt-5 bg-white rounded-2xl rounded-b-none">
           <div className="overflow-x-auto rounded-2xl rounded-b-none">
             <table className="table">
