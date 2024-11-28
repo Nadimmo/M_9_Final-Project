@@ -23,7 +23,7 @@ const BookingPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     // Send formData to the database or API endpoint
     axiosPublic
       .post("/bookings", formData)
@@ -36,7 +36,18 @@ const BookingPage = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+          // Clear the form after successful submission
+        setFormData({
+            date: "",
+            time: "",
+            guests: "1",
+            name: "",
+            phone: "",
+            email: "",
+          });
+          
         }
+        
       })
       .catch((err) => {
         alert(err.message);
