@@ -4,10 +4,12 @@ import Title from "../Title/Title";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AddReview = () => {
     const axiosPublic = useAxiosPublic()
     const {user} = useContext(AuthContext)
+    const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -25,16 +27,33 @@ const AddReview = () => {
         suggestion: data.suggestion
     }
     // console.log(review)
-    const res = await axiosPublic.post('/review', review)
-        console.log(res)
-        if(res.data.insertedId){
-            Swal.fire({
-                title: "Success!",
-                text: "Review submitted successfully.",
-                icon: "success",
-              });
-        
+    if(user || user?.displayName){
+      const res = await axiosPublic.post('/review', review)
+      // console.log(res)
+      if(res.data.insertedId){
+          Swal.fire({
+              title: "Success!",
+              text: "Review submitted successfully.",
+              icon: "success",
+            });
+      
+      }
+    } else {
+      Swal.fire({
+        title: "You are not Logged In",
+        text: "Please login to add to the cart?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, login!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login" , {state:{from: location.pathname}});
         }
+      });
+    }
+  
   };
 
   const handleRating = (rate) => {

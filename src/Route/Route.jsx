@@ -21,7 +21,6 @@ import AddReview from "../page/Dasboard/AddReview";
 import OurShope from "../page/OurShope/OurShope";
 import BookingPage from "../page/Dasboard/BookingPage";
 // import PrivateRoute from "../PrivateRoute/PrivateRoute";
-import PrivateRoute from './../PrivateRoute/PrivateRoute';
 
 
   const router = createBrowserRouter([
@@ -67,7 +66,7 @@ import PrivateRoute from './../PrivateRoute/PrivateRoute';
         // user dashboard
        { 
         path: 'cart',
-        element: <PrivateRoute><Cart></Cart></PrivateRoute> 
+        element: <Cart></Cart>
       },
       {
         path:"payment",

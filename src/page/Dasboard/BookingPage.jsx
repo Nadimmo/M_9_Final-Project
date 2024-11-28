@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Title from "../Title/Title";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaLocationDot } from "react-icons/fa6";
 import { PiTimerFill } from "react-icons/pi";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const BookingPage = () => {
+  const {user} = useContext(AuthContext)
+  const navigate = useNavigate()
   const axiosPublic = useAxiosPublic();
   const [formData, setFormData] = useState({
     date: "",
@@ -25,7 +29,8 @@ const BookingPage = () => {
     e.preventDefault();
     // console.log(formData);
     // Send formData to the database or API endpoint
-    axiosPublic
+    if(user || user?.displayName){
+      axiosPublic
       .post("/bookings", formData)
       .then((res) => {
         if (res.data.insertedId) {
@@ -52,6 +57,23 @@ const BookingPage = () => {
       .catch((err) => {
         alert(err.message);
       });
+    }
+    else {
+      Swal.fire({
+        title: "You are not Logged In",
+        text: "Please login to add to the cart?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, login!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login" , {state:{from: location.pathname}});
+        }
+      });
+    }
+   
   };
 
   return (
