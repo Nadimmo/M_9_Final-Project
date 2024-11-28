@@ -76,7 +76,8 @@ const NavBar = () => {
           </div>
           <div>
             <a className="btn btn-ghost text-xl font-bold uppercase hidden lg:block">
-              Bistro Boss{" "}
+            Gourmet Feast
+            {" "}
             </a>
           </div>
         </div>

@@ -18,6 +18,7 @@ import UpdateItem from "../page/Dasboard/UpdateItem";
 import Payment from "../page/Dasboard/Payment";
 import PaymentHistory from "../page/Dasboard/PaymentHistory";
 import AddReview from "../page/Dasboard/AddReview";
+import OurShope from "../page/OurShope/OurShope";
 // import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -45,6 +46,10 @@ import AddReview from "../page/Dasboard/AddReview";
         {
           path: '/login',
           element: <Login></Login>
+        },
+        {
+          path:'/shope',
+          element:<OurShope></OurShope>
         },
         {
           path:'/contact',
