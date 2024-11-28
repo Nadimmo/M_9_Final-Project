@@ -13,10 +13,12 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import Swal from "sweetalert2";
+import useAxiosPublic from './../page/Hooks/useAxiosPublic';
 
 const Login = () => {
+  const axiosPublic =useAxiosPublic()
   const [disable, setDisable] = useState(true);
-  const { login, loginWithGoogle, loginWithGithub } = useContext(AuthContext);
+  const { login, loginWithGoogle, loginWithGithub, user } = useContext(AuthContext);
   const captchaRef = useRef(null);
 
   const location = useLocation();
@@ -57,54 +59,75 @@ const Login = () => {
   const handlerGoogle = (e) => {
     loginWithGoogle()
       .then((res) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Log in successfully",
-        });
-        console.log(res.user);
-        navigate(location?.state || "/");
+        if (res.user) {
+          const userInfo = {
+            name: user?.displayName,
+            email: user?.email
+          }
+          axiosPublic.post("/user", userInfo).then((res) => {
+            if (res.data) {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                },
+              });
+              Toast.fire({
+                icon: "success",
+                title: "User Create successfully",
+              });
+              // console.log(res.user);
+              navigate(location?.state || "/");
+            }
+          });
+        }
       })
       .catch((error) => {
-        console.error(error);
+        alert(error.message);
       });
   };
 
   const handlerGithub = (e) => {
     loginWithGithub()
-      .then((res) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
+    .then((res) => {
+      if (res.user) {
+        const userInfo = {
+          name: user?.displayName,
+          email: user?.email
+        }
+        axiosPublic.post("/user", userInfo).then((res) => {
+          if (res.data) {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              },
+            });
+            Toast.fire({
+              icon: "success",
+              title: "User Create successfully",
+            });
+            // console.log(res.user);
+            navigate(location?.state || "/");
+          }
         });
-        Toast.fire({
-          icon: "success",
-          title: "Log in successfully",
-        });
-        console.log(res.user);
-        navigate(location?.state || "/");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      }
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
   };
+
 
   useEffect(() => {
     loadCaptchaEnginge(6);

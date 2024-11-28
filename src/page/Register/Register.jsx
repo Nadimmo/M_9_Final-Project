@@ -8,10 +8,10 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 const Register = () => {
-  const { register, updateUserProfile, loginWithGoogle ,loginWithGithub} =
+  const { register, updateUserProfile, loginWithGoogle, loginWithGithub,user } =
     useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +54,7 @@ const Register = () => {
             });
             navigate(location?.state || "/");
           }
-          form.reset()
+          form.reset();
         });
       })
 
@@ -66,56 +66,74 @@ const Register = () => {
   const handlerGoogle = (e) => {
     loginWithGoogle()
       .then((res) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "User Create successfully",
-        });
-        // console.log(res.user);
-        navigate(location?.state || "/");
-
+        if (res.user) {
+          const userInfo = {
+            name: user?.displayName,
+            email: user?.email
+          }
+          axiosPublic.post("/user", userInfo).then((res) => {
+            if (res.data) {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                },
+              });
+              Toast.fire({
+                icon: "success",
+                title: "User Create successfully",
+              });
+              // console.log(res.user);
+              navigate(location?.state || "/");
+            }
+          });
+        }
       })
       .catch((error) => {
-        console.error(error);
+        alert(error.message);
       });
   };
 
   const handlerGithub = (e) => {
     loginWithGithub()
-      .then((res) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
+    .then((res) => {
+      if (res.user) {
+        const userInfo = {
+          name: user?.displayName,
+          email: user?.email
+        }
+        axiosPublic.post("/user", userInfo).then((res) => {
+          if (res.data) {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              },
+            });
+            Toast.fire({
+              icon: "success",
+              title: "User Create successfully",
+            });
+            // console.log(res.user);
+            navigate(location?.state || "/");
+          }
         });
-        Toast.fire({
-          icon: "success",
-          title: "Log in successfully",
-        });
-        console.log(res.user);
-        navigate(location?.state || "/");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      }
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
   };
-
 
   return (
     <div className="back pt-[100px]">
@@ -190,20 +208,20 @@ const Register = () => {
               </div>
               <div className="text-center text-lg divider">- - Or - -</div>
               <div className=" text-4xl  mt-4">
-                <button   onClick={handlerGoogle} className="btn w-full hover:bg-yellow-600 hover:text-white">
+                <button
+                  onClick={handlerGoogle}
+                  className="btn w-full hover:bg-yellow-600 hover:text-white"
+                >
                   {" "}
-                  <FcGoogle
-                  
-                    className="hover:cursor-pointer  text-2xl ml-20"
-                  />{" "}
-                 <p> sign in with google</p>
+                  <FcGoogle className="hover:cursor-pointer  text-2xl ml-20" />{" "}
+                  <p> sign in with google</p>
                 </button>
-                <button   onClick={handlerGithub} className="btn w-full mt-2 hover:bg-yellow-600 hover:text-white ">
+                <button
+                  onClick={handlerGithub}
+                  className="btn w-full mt-2 hover:bg-yellow-600 hover:text-white "
+                >
                   {" "}
-                  <FaGithub
-                  
-                     className="hover:cursor-pointer text-2xl ml-20"
-                  />
+                  <FaGithub className="hover:cursor-pointer text-2xl ml-20" />
                   <p>sig in with github</p>
                 </button>
               </div>
