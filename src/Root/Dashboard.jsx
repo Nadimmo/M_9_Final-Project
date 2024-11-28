@@ -23,6 +23,7 @@ const Dashboard = () => {
       <div className="w-64 min-h-screen bg-[#D1A054] text-white">
         <ul className="menu p-4">
           {isAdmin ? (
+            // admin route
             <>
               <li className="text-xl">
                 <NavLink to="/dashboard/userHome">
@@ -56,6 +57,7 @@ const Dashboard = () => {
               </li>
             </>
           ) : (
+            // user route
             <>
               <li className="text-xl">
                 <NavLink to="/dashboard/userHome">
@@ -104,12 +106,12 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li className="text-xl">
-            <NavLink to={"dashboard/shope"}>
+            <NavLink to={"/shope"}>
               <MdShoppingBag className="text-2xl" /> Shope
             </NavLink>
           </li>
           <li className="text-xl">
-            <NavLink to={"dashboard/contact"}>
+            <NavLink to={"/contact"}>
               <FaEnvelope className="text-2xl" /> Contact
             </NavLink>
           </li>

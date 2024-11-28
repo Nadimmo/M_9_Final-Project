@@ -19,6 +19,7 @@ import Payment from "../page/Dasboard/Payment";
 import PaymentHistory from "../page/Dasboard/PaymentHistory";
 import AddReview from "../page/Dasboard/AddReview";
 import OurShope from "../page/OurShope/OurShope";
+import BookingPage from "../page/Dasboard/BookingPage";
 // import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -62,6 +63,7 @@ import OurShope from "../page/OurShope/OurShope";
       path:"dashboard",
       element: <Dashboard></Dashboard>,
       children: [
+        // user dashboard
        { 
         path: 'cart',
         element: <Cart></Cart>
@@ -78,6 +80,11 @@ import OurShope from "../page/OurShope/OurShope";
         path:"addReview",
         element: <AddReview></AddReview>
       },
+      {
+        path:'reservation',
+        element: <BookingPage></BookingPage>
+      },
+      // admin dashboard
       {
         path:"user",
         element: <AdminRoute><AllUsers></AllUsers></AdminRoute> 

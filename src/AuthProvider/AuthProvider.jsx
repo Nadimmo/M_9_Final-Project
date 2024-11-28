@@ -53,7 +53,7 @@ const AuthProvider = ({children}) => {
             console.log('current user', currentUser)
             setLoader(false)
             setUser(currentUser)
-            const userInfo = {email: currentUser.email}
+            const userInfo = {email: currentUser?.email}
             // jwt
             if(currentUser){
                 axiosPublic.post('/jwt',userInfo)
