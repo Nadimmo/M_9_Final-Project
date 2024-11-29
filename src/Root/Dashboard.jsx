@@ -26,7 +26,7 @@ const Dashboard = () => {
             // admin route
             <>
               <li className="text-xl">
-                <NavLink to="/dashboard/userHome">
+                <NavLink to="/dashboard/adminHome">
                   <FaHome className="text-2xl"></FaHome>
                   Admin Home
                 </NavLink>

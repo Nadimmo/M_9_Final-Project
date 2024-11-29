@@ -19,29 +19,29 @@ const AdminHome = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Users Card */}
         <div className="flex items-center justify-between bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg shadow-lg p-6">
-          <div>
-            <p className="text-lg font-semibold">All Users</p>
-            <p className="text-4xl font-extrabold">{users}</p>
-          </div>
           <FaUsers className="text-6xl opacity-80" />
+          <div>
+            <p className="text-4xl font-extrabold">{users}</p>
+            <p className="text-lg font-semibold">All Users</p>
+          </div>
         </div>
 
         {/* Menu Card */}
         <div className="flex items-center justify-between bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-lg shadow-lg p-6">
-          <div>
-            <p className="text-lg font-semibold">Menu</p>
-            <p className="text-4xl font-extrabold">{menu}</p>
-          </div>
           <FaClipboardList className="text-6xl opacity-80" />
+          <div>
+            <p className="text-4xl font-extrabold">{menu}</p>
+            <p className="text-lg font-semibold">Menu</p>
+          </div>
         </div>
 
         {/* Orders Card */}
         <div className="flex items-center justify-between bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-lg shadow-lg p-6">
-          <div>
-            <p className="text-lg font-semibold">Orders</p>
-            <p className="text-4xl font-extrabold">{orders}</p>
-          </div>
           <FaShoppingCart className="text-6xl opacity-80" />
+          <div>
+            <p className="text-4xl font-extrabold">{orders}</p>
+            <p className="text-lg font-semibold">Orders</p>
+          </div>
         </div>
       </div>
     </div>
