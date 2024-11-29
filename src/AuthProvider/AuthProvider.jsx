@@ -51,7 +51,6 @@ const AuthProvider = ({children}) => {
     useEffect(()=>{
         const UnSubscribe = onAuthStateChanged(auth, currentUser =>{
             console.log('current user', currentUser)
-            setLoader(false)
             setUser(currentUser)
             const userInfo = {email: currentUser?.email}
             // jwt
@@ -61,19 +60,23 @@ const AuthProvider = ({children}) => {
                     if(res.data.token){
                         // set token localstorage
                     localStorage.setItem("access-token", res.data.token)
+                    setLoader(false)
+
                     }
                 })
             }
             else{
                 // remove  token in localstorage
                 localStorage.removeItem('access-token')
+                setLoader(false)
+
             }
     
             return () =>{
                 UnSubscribe()
             }
         })
-    },[])
+    },[axiosPublic])
 
 
     const authInfo = {

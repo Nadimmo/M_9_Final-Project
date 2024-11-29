@@ -21,6 +21,8 @@ import AddReview from "../page/Dasboard/AddReview";
 import OurShope from "../page/OurShope/OurShope";
 import BookingPage from "../page/Dasboard/BookingPage";
 import ManageBooking from "../page/Dasboard/ManageBooking";
+import UserHome from "../page/Dasboard/UserHome";
+import AdminHome from "../page/Dasboard/AdminHome";
 // import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -65,6 +67,10 @@ import ManageBooking from "../page/Dasboard/ManageBooking";
       element: <Dashboard></Dashboard>,
       children: [
         // user dashboard
+        {
+          path:'userHome',
+          element: <UserHome></UserHome>
+        },
        { 
         path: 'cart',
         element: <Cart></Cart>
@@ -86,6 +92,10 @@ import ManageBooking from "../page/Dasboard/ManageBooking";
         element: <BookingPage></BookingPage>
       },
       // admin dashboard
+      {
+        path:'adminHome',
+        element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+      },
       {
         path:"user",
         element: <AdminRoute><AllUsers></AllUsers></AdminRoute> 

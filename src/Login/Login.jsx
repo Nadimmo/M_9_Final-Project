@@ -23,6 +23,8 @@ const Login = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  // console.log(location.pathname)
+
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -83,6 +85,7 @@ const Login = () => {
               });
               // console.log(res.user);
               navigate(location?.state || "/");
+
             }
           });
         }
