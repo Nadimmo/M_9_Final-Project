@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 import useAllData from '../Hooks/useAllData';
-import { FaUsers, FaClipboardList, FaShoppingCart } from 'react-icons/fa';
+import { FaUsers, FaClipboardList,  } from 'react-icons/fa';
+import { PiVanFill } from 'react-icons/pi';
 
 const AdminHome = () => {
   const { user } = useContext(AuthContext);
@@ -37,7 +38,7 @@ const AdminHome = () => {
 
         {/* Orders Card */}
         <div className="flex items-center justify-between bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-lg shadow-lg p-6">
-          <FaShoppingCart className="text-6xl opacity-80" />
+          <PiVanFill className="text-6xl opacity-80" />
           <div>
             <p className="text-4xl font-extrabold">{orders}</p>
             <p className="text-lg font-semibold">Orders</p>
