@@ -2,19 +2,27 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import useUserHome from "../Hooks/useUserHome";
 import { FaClipboardList, FaStar, FaUsers, FaWallet } from "react-icons/fa6";
-import { FaCalendarAlt, FaCloudDownloadAlt, FaShoppingCart } from "react-icons/fa";
+import { FaCalendarAlt} from "react-icons/fa";
 import useCart from "../Hooks/useCart";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { PiVanFill } from "react-icons/pi";
+import usePayments from "../Hooks/usePayments";
+import useAllData from "../Hooks/useAllData";
 
 const UserHome = () => {
   const { user } = useContext(AuthContext);
-  const { allDataUser } = useUserHome();
-  const [cart, refetch] = useCart();
+  const { allDataUser } = useUserHome(); 
+  const {allData} = useAllData()
+  const {payments} = usePayments()
+  const [cart] = useCart();
 
-  const orders = allDataUser[0]?.length || 0;
+  const orders = allData[2]?.length || 0; 
+  const menu = allDataUser[0]?.length || 0;
   const contact = allDataUser[1]?.length || 0;
-  // console.log(allDataUser)
+  const reviews = allDataUser[2]?.length || 0;
+  // Assuming third index for orders
+
+  // console.log(orders)
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -27,7 +35,7 @@ const UserHome = () => {
         <div className="flex items-center justify-between bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg shadow-lg p-6">
           <FaClipboardList className="text-6xl opacity-80" />
           <div>
-            <p className="text-4xl font-extrabold">{orders}</p>
+            <p className="text-4xl font-extrabold">{menu}</p>
             <p className="text-lg font-semibold">All Menu</p>
           </div>
         </div>
@@ -74,10 +82,10 @@ const UserHome = () => {
               <FaCalendarAlt className="text-2xl" /> Booking: {cart.length}
             </li>
             <li className="flex items-center gap-3">
-              <FaWallet className="text-2xl" /> Payments: Pending
+              <FaWallet className="text-2xl" /> Payments: {payments.length}
             </li>
             <li className="flex items-center gap-3">
-              <FaStar className="text-2xl" /> Review: Not Submitted
+              <FaStar className="text-2xl" /> Review: {reviews}
             </li>
           </ul>
         </div>
