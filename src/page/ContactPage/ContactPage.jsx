@@ -57,8 +57,8 @@ const ContactPage = () => {
       <br />
       <br />
       <Title title={"Visit Us "} short={"our location"}></Title>
-      <div className="ml-16 mt-5 lg:mx-12 grid lg:grid-cols-3 gap-10">
-        <div className="w-[300px] h-[180px]  border-2 bg-white text-black">
+      <div className=" mt-5 lg:mx-12 grid lg:grid-cols-3 gap-10 mx-auto ">
+        <div className="w-[300px] h-[180px]  border-2 bg-white text-black mx-auto">
           <p className="bg-[#D1A054] h-10 w-full">
             <BiSolidPhoneCall className="ml-[120px] text-4xl" />
           </p>
@@ -67,7 +67,7 @@ const ContactPage = () => {
             <p className="text-sm">+38 (012) 34 56 789</p>
           </div>
         </div>
-        <div className="w-[300px] lg:ml-5 h-[180px]  border-2 bg-white text-black">
+        <div className="w-[300px] lg:ml-5 h-[180px]  border-2 bg-white text-black mx-auto">
           <p className="bg-[#D1A054] h-10 w-full">
             <FaLocationDot className="ml-[120px] text-4xl" />
           </p>
@@ -76,7 +76,7 @@ const ContactPage = () => {
             <p className="text-sm">+38 (012) 34 56 789</p>
           </div>
         </div>
-        <div className="w-[300px] h-[180px]  border-2 bg-white text-black">
+        <div className="w-[300px] h-[180px]  border-2 bg-white text-black mx-auto">
           <p className="bg-[#D1A054] h-10 w-full">
             <PiTimerFill className="ml-[120px] text-4xl" />
           </p>

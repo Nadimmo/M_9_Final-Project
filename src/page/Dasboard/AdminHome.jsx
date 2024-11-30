@@ -30,7 +30,7 @@ const AdminHome = () => {
         <div className="flex items-center justify-between bg-gradient-to-r from-purple-300 to-purple-500 text-white rounded-lg shadow-lg p-6">
           <FaWallet className="text-5xl opacity-80" />
           <div>
-            <p className="text-4xl font-extrabold">{totalPrice}</p>
+            <p className="text-3xl font-extrabold">{totalPrice}</p>
             <p className="text-lg font-semibold">Revenue</p>
           </div>
         </div>
@@ -64,7 +64,7 @@ const AdminHome = () => {
 
       <div className="lg:grid grid-cols-2 w-full gap-4 mt-20">
       <CustomBarChartComponent></CustomBarChartComponent>
-      <PieChartComponent></PieChartComponent>
+      <PieChartComponent ></PieChartComponent>
       </div>
 
     </div>
