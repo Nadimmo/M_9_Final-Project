@@ -41,14 +41,14 @@ const NavBar = () => {
         </NavLink>
       </li>
       }
-      <li>
+      {/* <li>
         <NavLink to={"/dashboard/cart"}>
           <button className="btn btn-sm">
           <FaCartShopping/>
             <div className="badge badge-secondary">{cart.length}</div>
           </button>
         </NavLink>
-      </li>
+      </li> */}
       <li>
         <NavLink to={"/shope"}>
           <a href="">Our Shope</a>
