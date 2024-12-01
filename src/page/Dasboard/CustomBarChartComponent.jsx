@@ -1,6 +1,7 @@
 import React from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
-import useMenu from '../Hooks/useMenu';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 // Colors for the bars
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red'];
@@ -18,35 +19,35 @@ const TriangleBar = ({ fill, x, y, width, height }) => {
 };
 
 const CustomBarChartComponent = () => {
-  const [menu] = useMenu();
 
   // Filter data by category
-  const data = [
-    { name: 'Offered', value: menu.filter((item) => item.category === 'offered').length },
-    { name: 'Pizza', value: menu.filter((item) => item.category === 'pizza').length },
-    { name: 'Dessert', value: menu.filter((item) => item.category === 'dessert').length },
-    { name: 'Salad', value: menu.filter((item) => item.category === 'salad').length },
-    { name: 'Soup', value: menu.filter((item) => item.category === 'soup').length },
-  ];
+  const { data: chartData = [] } = useQuery({
+    queryKey: ['order-stats'],
+    queryFn: async () => {
+        const res = await useAxiosSecure.get('/order-stats');
+        return res.data;
+    }
+})
+
 
   return (
     <div className="p-6 bg-white shadow-lg rounded-lg lg:w-[420px] mx-auto">
       <div className="w-full h-80">
         <ResponsiveContainer>
           <BarChart
-            data={data}
+            data={chartData}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="category" />
             <YAxis />
             <Bar
-              dataKey="value"
+              dataKey="quantity"
               fill="#8884d8"
               shape={<TriangleBar />}
               label={{ position: 'top' }}
             >
-              {data.map((entry, index) => (
+              {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
               ))}
             </Bar>
