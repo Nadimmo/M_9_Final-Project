@@ -11,15 +11,13 @@ import useAllData from "../Hooks/useAllData";
 
 const UserHome = () => {
   const { user } = useContext(AuthContext);
-  const { allDataUser } = useUserHome(); 
-  const {allData} = useAllData()
   const {payments} = usePayments()
-  const [cart] = useCart();
+  const [cart] = useCart(); // show my booking or my orders
+  const { allDataUser } = useUserHome(); 
 
-  const orders = allData[2]?.length || 0; 
-  const menu = allDataUser[0]?.length || 0;
-  const contact = allDataUser[1]?.length || 0;
-  const reviews = allDataUser[2]?.length || 0;
+  const menu = allDataUser[0] || 0;
+  const contact = allDataUser[1] || 0;
+  const reviews = allDataUser[2] || 0;
   // Assuming third index for orders
 
   // console.log(orders)
@@ -75,9 +73,6 @@ const UserHome = () => {
         <div className="bg-gradient-to-r from-orange-400 to-yellow-500 text-white w-full lg:w-1/2 mx-auto p-8 rounded-lg shadow-lg">
           <h1 className="text-4xl font-mono font-bold mb-6">Your Activity</h1>
           <ul className="text-lg font-semibold space-y-4">
-            <li className="flex items-center gap-3">
-              <PiVanFill className="text-2xl" /> Orders: {orders}
-            </li>
             <li className="flex items-center gap-3">
               <FaCalendarAlt className="text-2xl" /> Booking: {cart.length}
             </li>
