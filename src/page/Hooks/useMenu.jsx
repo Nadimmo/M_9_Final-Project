@@ -16,7 +16,7 @@ const useMenu = () => {
     // const [loader, setLoader] = useState(true)
 
     // useEffect(()=>{
-    //     fetch('http://localhost:5000/menu')
+    //     fetch('https://resturent-server-side-psi.vercel.app/menu')
     //     .then(res => res.json())
     //     .then(data => setMenu(data))
     //     setLoader(false)
