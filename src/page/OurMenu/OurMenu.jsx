@@ -37,7 +37,7 @@ const OurMenu = () => {
       <br />
       <Title title={"Don't miss "} short={"today's offer"}></Title>
       <div className="mt-10 ">
-        <MenuCategory items={"offered"}></MenuCategory>
+        <MenuCategory title={"offered"} items={offered}></MenuCategory>
         <Cover
         img={img2}
         title="pizza"
@@ -61,7 +61,7 @@ const OurMenu = () => {
         title="soup"
         description={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
       ></Cover>
-        <MenuCategory items={"soup"}></MenuCategory>
+        <MenuCategory title={"soup"} items={soup}></MenuCategory>
       </div>
     </div>
   );
